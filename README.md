@@ -1,0 +1,31 @@
+## Configuration
+
+Configure passwords in a [.env][] file like this:
+
+[.env]: https://docs.docker.com/compose/environment-variables/#the-env-file
+
+```
+KEYSTONE_ADMIN_PASSWORD=secret.ks.admin.password
+KEYSTONE_DB_PASSWORD=secret.db.user.password
+MYSQL_ROOT_PASSWORD=secret.db.root.password
+```
+
+## Running it
+
+To start up mysql and keystone:
+
+```
+docker-compose up -d
+```
+
+This will expose keystone on `localhost` port `5000`. You can grab a `clouds.yaml` file from the container for use with the `openstack` client:
+
+```
+docker-compose exec keystone cat /root/clouds.yaml > clouds.yaml
+```
+
+Once you have this in your current directory, you can run, for example:
+
+```
+openstack --os-cloud openstack-internal catalog list
+```
