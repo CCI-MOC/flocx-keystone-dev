@@ -1,0 +1,32 @@
+---
+version: "3"
+
+services:
+  database:
+    image: mariadb:10.4.5-bionic
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${KEYSTONE_DB_USER:-keystone}
+      MYSQL_PASSWORD: ${KEYSTONE_DB_PASSWORD}
+      MYSQL_DATABASE: ${KEYSTONE_DB_NAME:-keystone}
+    volumes:
+      - mysql:/var/lib/mysql
+
+  keystone:
+    image: tripleomaster/centos-binary-keystone:${KEYSTONE_IMAGE_HASH:-current-tripleo}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      KEYSTONE_ADMIN_PASSWORD: ${KEYSTONE_ADMIN_PASSWORD}
+      KEYSTONE_DB_PASSWORD: ${KEYSTONE_DB_PASSWORD}
+      KEYSTONE_DB_USER: ${KEYSTONE_DB_USER:-keystone}
+      KEYSTONE_DB_NAME: ${KEYSTONE_DB_NAME:-keystone}
+    volumes:
+      - "./config:/config"
+    command:
+      - /bin/sh
+      - /config/startup.sh
+    ports:
+      - "127.0.0.1:5000:5000"
+
+volumes:
+  mysql:
