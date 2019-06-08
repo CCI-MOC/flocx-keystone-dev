@@ -20,6 +20,7 @@ services:
       KEYSTONE_DB_PASSWORD: ${KEYSTONE_DB_PASSWORD}
       KEYSTONE_DB_USER: ${KEYSTONE_DB_USER:-keystone}
       KEYSTONE_DB_NAME: ${KEYSTONE_DB_NAME:-keystone}
+      KEYSTONE_DEBUG: ${KEYSTONE_DEBUG:-"false"}
     volumes:
       - "./config:/config"
     command:
