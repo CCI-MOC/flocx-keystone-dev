@@ -13,7 +13,7 @@ services:
       - mysql:/var/lib/mysql
 
   keystone:
-    image: tripleomaster/centos-binary-keystone:${KEYSTONE_IMAGE_HASH:-current-tripleo}
+    image: tripleomaster/centos-binary-keystone:${KEYSTONE_IMAGE_TAG:-current-tripleo}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       KEYSTONE_ADMIN_PASSWORD: ${KEYSTONE_ADMIN_PASSWORD}
