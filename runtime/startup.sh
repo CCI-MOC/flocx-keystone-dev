@@ -32,4 +32,10 @@ runuser -u keystone -- keystone-manage bootstrap \
 	--bootstrap-region-id ${KEYSTONE_REGION:-RegionOne}
 
 echo "* starting httpd"
-exec /usr/sbin/httpd -DFOREGROUND
+exec /usr/sbin/uwsgi --plugin python,http \
+	--http :5000 \
+	--uid keystone \
+	--gid keystone \
+	--wsgi-file /var/www/cgi-bin/keystone/main \
+	--master \
+	--processes 4
