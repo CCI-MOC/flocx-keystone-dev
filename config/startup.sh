@@ -11,7 +11,7 @@ $DTU -o /etc/httpd/conf.d/keystone-wsgi-main.conf /config/keystone-wsgi-main.j2.
 $DTU -o /root/clouds.yaml /config/clouds.j2.yaml
 
 echo "* initializing fernet tokens"
-install -d -o root -g keystone -m 775 /etc/keystone/fernet-keys
+install -d -o root -g keystone -m 770 /etc/keystone/fernet-keys
 runuser -u keystone -- keystone-manage fernet_setup \
 	--keystone-user keystone \
 	--keystone-group keystone
