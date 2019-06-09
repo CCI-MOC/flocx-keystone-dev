@@ -13,7 +13,10 @@ services:
       - mysql:/var/lib/mysql
 
   keystone:
-    image: tripleomaster/centos-binary-keystone:${KEYSTONE_IMAGE_TAG:-current-tripleo}
+    build:
+      context: .
+      args:
+        KEYSTONE_IMAGE_TAG: current-tripleo
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       KEYSTONE_ADMIN_PASSWORD: ${KEYSTONE_ADMIN_PASSWORD}
@@ -21,11 +24,6 @@ services:
       KEYSTONE_DB_USER: ${KEYSTONE_DB_USER:-keystone}
       KEYSTONE_DB_NAME: ${KEYSTONE_DB_NAME:-keystone}
       KEYSTONE_DEBUG: ${KEYSTONE_DEBUG:-"false"}
-    volumes:
-      - "./config:/config"
-    command:
-      - /bin/sh
-      - /config/startup.sh
     ports:
       - "127.0.0.1:5000:5000"
 

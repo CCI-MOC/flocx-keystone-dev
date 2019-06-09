@@ -1,14 +1,16 @@
 #!/bin/sh
 
-DTU='python /config/dtu.py'
+set -e
+
+RUNTIME=/runtime
+DTU="python $RUNTIME/dtu.py"
 
 : ${KEYSTONE_DB_HOST:=database}
 export KEYSTONE_DB_HOST
 
 echo "* generating config files from templates"
-$DTU -o /etc/keystone/keystone.conf /config/keystone.j2.conf
-$DTU -o /etc/httpd/conf.d/keystone-wsgi-main.conf /config/keystone-wsgi-main.j2.conf
-$DTU -o /root/clouds.yaml /config/clouds.j2.yaml
+$DTU -o /etc/keystone/keystone.conf $RUNTIME/keystone.j2.conf
+$DTU -o /root/clouds.yaml $RUNTIME/clouds.j2.yaml
 
 echo "* initializing fernet tokens"
 install -d -o root -g keystone -m 770 /etc/keystone/fernet-keys
