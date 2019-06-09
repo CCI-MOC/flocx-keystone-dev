@@ -11,7 +11,8 @@ $DTU -o /etc/httpd/conf.d/keystone-wsgi-main.conf /config/keystone-wsgi-main.j2.
 $DTU -o /root/clouds.yaml /config/clouds.j2.yaml
 
 echo "* initializing fernet tokens"
-keystone-manage fernet_setup \
+install -d -o root -g keystone -m 775 /etc/keystone/fernet-keys
+runuser -u keystone -- keystone-manage fernet_setup \
 	--keystone-user keystone \
 	--keystone-group keystone
 
@@ -22,7 +23,7 @@ while ! keystone-manage db_sync; do
 done
 
 echo "* initializing service catalog"
-keystone-manage bootstrap \
+runuser -u keystone -- keystone-manage bootstrap \
 	--bootstrap-password ${KEYSTONE_ADMIN_PASSWORD} \
 	--bootstrap-internal-url http://localhost:5000 \
 	--bootstrap-public-url ${KEYSTONE_PUBLIC_URL:-http://localhost:5000} \
