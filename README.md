@@ -37,3 +37,5 @@ If you have [ansible][] available (`sudo yum install ansible`), you can use the 
 ```
 ansible-playbook create-users-projects.yml
 ```
+
+[ansible]: https://www.ansible.com/
