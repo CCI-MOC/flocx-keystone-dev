@@ -29,3 +29,11 @@ Once you have this in your current directory, you can run, for example:
 ```
 openstack --os-cloud openstack-internal catalog list
 ```
+
+## Creating users and projects
+
+If you have [ansible][] available (`sudo yum install ansible`), you can use the included `create-users-projects.yml` playbook to create a set of projects and users:
+
+```
+ansible-playbook create-users-projects.yml
+```
