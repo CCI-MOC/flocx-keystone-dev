@@ -24,10 +24,16 @@ This will expose keystone on `localhost` port `5000`. You can grab a `clouds.yam
 docker-compose exec keystone cat /root/clouds.yaml > clouds.yaml
 ```
 
-Once you have this in your current directory, you can run, for example:
+Once you have this in your current directory, set the `OS_CLOUD` environment variable:
 
 ```
-openstack --os-cloud openstack-internal catalog list
+export OS_CLOUD=openstack-public
+```
+
+And then you can run OpenStack commands:
+
+```
+openstack catalog list
 ```
 
 ## Creating users and projects
