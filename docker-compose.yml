@@ -12,7 +12,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     ports:
-      - "127.0.0.1:3307:3306"
+      - "127.0.0.1:${MARIADB_HOST_PORT:-3306}:3306"
 
   keystone:
     build:
@@ -27,7 +27,7 @@ services:
       KEYSTONE_DB_NAME: ${KEYSTONE_DB_NAME:-keystone}
       KEYSTONE_DEBUG: ${KEYSTONE_DEBUG:-"false"}
     ports:
-      - "127.0.0.1:5000:5000"
+      - "127.0.0.1:${KEYSTONE_HOST_PORT:-5000}:5000"
 
 volumes:
   mysql:
