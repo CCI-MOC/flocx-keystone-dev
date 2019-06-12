@@ -11,6 +11,8 @@ services:
       MYSQL_DATABASE: ${KEYSTONE_DB_NAME:-keystone}
     volumes:
       - mysql:/var/lib/mysql
+    ports:
+      - "127.0.0.1:3307:3306"
 
   keystone:
     build:
