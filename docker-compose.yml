@@ -6,14 +6,16 @@ services:
     image: mariadb:10.4.5-bionic
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MARKET_DB_PASSWORD: ${MARKET_DB_PASSWORD}
+      PROVIDER_DB_PASSWORD: ${PROVIDER_DB_PASSWORD}
       MYSQL_USER: ${KEYSTONE_DB_USER:-keystone}
       MYSQL_PASSWORD: ${KEYSTONE_DB_PASSWORD}
       MYSQL_DATABASE: ${KEYSTONE_DB_NAME:-keystone}
     volumes:
       - mysql:/var/lib/mysql
+      - ./tables/:/docker-entrypoint-initdb.d
     ports:
       - "127.0.0.1:${MARIADB_HOST_PORT:-3306}:3306"
-
   keystone:
     build:
       context: .
