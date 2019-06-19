@@ -13,7 +13,8 @@ services:
       MYSQL_DATABASE: ${KEYSTONE_DB_NAME:-keystone}
     volumes:
       - mysql:/var/lib/mysql
-      - ./tables/:/docker-entrypoint-initdb.d
+      - ./entrypoint.d/:/docker-entrypoint-initdb.d
+      - ./sql:/sql
     ports:
       - "127.0.0.1:${MARIADB_HOST_PORT:-3306}:3306"
   keystone:
